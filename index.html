@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Sign-In</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        .attendance-form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        .attendance-form h2 {
+            margin-bottom: 20px;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="attendance-form">
+        <h2>Sign In Attendance</h2>
+        <form id="attendanceForm">
+            <select id="studentName" required>
+                <option value="">Select Your Name</option>
+                <option value="John Doe - REG001">John Doe - REG001</option>
+                <option value="Jane Smith - REG002">Jane Smith - REG002</option>
+                <option value="Alice Johnson - REG003">Alice Johnson - REG003</option>
+                <option value="Michael Brown - REG004">Michael Brown - REG004</option>
+                <option value="Emily Davis - REG005">Emily Davis - REG005</option>
+                <option value="Daniel Wilson - REG006">Daniel Wilson - REG006</option>
+                <option value="Sophia Martinez - REG007">Sophia Martinez - REG007</option>
+                <option value="David Anderson - REG008">David Anderson - REG008</option>
+                <option value="Olivia Taylor - REG009">Olivia Taylor - REG009</option>
+                <option value="James Thomas - REG010">James Thomas - REG010</option>
+                <option value="Emma Garcia - REG011">Emma Garcia - REG011</option>
+                <option value="Benjamin Lee - REG012">Benjamin Lee - REG012</option>
+                <option value="Ava Harris - REG013">Ava Harris - REG013</option>
+                <option value="William Clark - REG014">William Clark - REG014</option>
+                <option value="Mia Rodriguez - REG015">Mia Rodriguez - REG015</option>
+                <option value="Ethan Lewis - REG016">Ethan Lewis - REG016</option>
+                <option value="Charlotte Walker - REG017">Charlotte Walker - REG017</option>
+                <option value="Alexander Hall - REG018">Alexander Hall - REG018</option>
+                <option value="Amelia Young - REG019">Amelia Young - REG019</option>
+                <option value="Lucas Allen - REG020">Lucas Allen - REG020</option>
+            </select>
+            <button type="submit">Sign In</button>
+        </form>
+    </div>
+
+    <script>
+        // Listen for form submission
+        document.getElementById('attendanceForm').addEventListener('submit', function (e) {
+            e.preventDefault();  // Prevent default form submission
+
+            const studentName = document.getElementById('studentName').value;
+
+            // If no name is selected, show an alert
+            if (studentName === "") {
+                alert('Please select your name.');
+                return;
+            }
+
+            // Send the selected name to the server using Fetch API
+            fetch('/attendance', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name: studentName })
+            })
+            .then(response => response.json())  // Parse the response JSON
+            .then(data => alert(data.message))  // Show the response message
+            .catch(error => console.error('Error:', error));  // Catch and log any errors
+        });
+    </script>
+</body>
+</html>
